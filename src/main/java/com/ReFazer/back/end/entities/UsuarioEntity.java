@@ -2,6 +2,7 @@ package com.ReFazer.back.end.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class UsuarioEntity {
     @Column(name = "tipo_usuario")
     private String tipo_usuario;
     
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     private AvaliacaoEntity avaliacao;
 
     @OneToMany(mappedBy = "usuario")

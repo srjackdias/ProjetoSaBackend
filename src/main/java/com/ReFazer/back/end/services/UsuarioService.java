@@ -2,10 +2,12 @@ package com.ReFazer.back.end.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
 import com.ReFazer.back.end.dtos.resp.ShowAvaliacaoDTO;
@@ -17,6 +19,8 @@ import com.ReFazer.back.end.entities.UsuarioEntity;
 import com.ReFazer.back.end.repositories.AvaliacaoRepository;
 import com.ReFazer.back.end.repositories.TrabalhoSolicitadoRepository;
 import com.ReFazer.back.end.repositories.UsuarioRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
@@ -33,6 +37,9 @@ public class UsuarioService {
 
     AvaliacaoRepository avaliacaoRepository;
 
+
+
+    @Transactional
     public void createUsuario(CreateUsuarioDTO dto) {
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
@@ -48,6 +55,7 @@ public class UsuarioService {
         AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
         avaliacaoEntity.setNota_avaliacao(dto.getAvaliacao().getNota_avaliacao());
         avaliacaoEntity.setTexto_avaliativo(dto.getAvaliacao().getTexto_avaliativo());
+        avaliacaoEntity.setUsuario(usuarioEntity);
 
         avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
 
@@ -110,5 +118,91 @@ public class UsuarioService {
                 }).toList();
     }
     
+    public ShowUsuarioDTO getUsuarioById(Long id_usuario){
+
+        Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
+
+        if (optionalUsuarioEntity.isEmpty()) {
+             // jogar uma excecao
+
+        }
+
+        UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
+
+        ShowUsuarioDTO dto = new ShowUsuarioDTO();
+        dto.setId_usuario(usuarioEntity.getId_usuario());
+        dto.setNome(usuarioEntity.getNome());
+        dto.setEmail(usuarioEntity.getEmail());
+        dto.setSenha(usuarioEntity.getSenha());
+        dto.setTelefone(usuarioEntity.getTelefone());
+        dto.setCep(usuarioEntity.getCep());
+        dto.setTipo_usuario(usuarioEntity.getTipo_usuario());
+
+        ShowAvaliacaoDTO avaliacaoDTO = new ShowAvaliacaoDTO();
+        avaliacaoDTO.setNota_avaliacao(usuarioEntity.getAvaliacao().getNota_avaliacao());
+        avaliacaoDTO.setTexto_avaliativo(usuarioEntity.getAvaliacao().getTexto_avaliativo());
+    
+    
+        dto.setAvaliacao(avaliacaoDTO);
+
+        return dto;
+    
+    }
+
+    @Transactional
+    public void deleteUsuarioById(long id_usuario){
+
+        Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
+
+        if (optionalUsuarioEntity.isEmpty()) {
+                        // jogar uma excecao
+
+        }
+
+        UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
+
+        if(usuarioEntity.getTrabalhos().isEmpty()){
+            usuarioRepository.deleteById(id_usuario);
+
+
+        }else{
+
+            // throw new deletableException();
+
+
+        }
+
+
+    }
+
+
+    
+    @Transactional
+
+    public void changeUsuarioInfosById(long id_usuario,ChangeUsuarioDTO dto){
+
+        Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
+
+
+
+        if (optionalUsuarioEntity.isEmpty()) {
+           
+        }
+
+        UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
+
+        usuarioEntity.setNome(dto.getNome());
+        usuarioEntity.setEmail(dto.getEmail());
+        usuarioEntity.setSenha(dto.getSenha());
+        usuarioEntity.setTelefone(dto.getTelefone());
+        usuarioEntity.setCep(dto.getCep());
+        usuarioEntity.setTipo_usuario(dto.getTipo_usuario());
+
+
+
+        usuarioRepository.save(usuarioEntity);
+    }
+    
+
 
 }
