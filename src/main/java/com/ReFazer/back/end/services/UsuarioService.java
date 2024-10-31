@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
+import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
@@ -246,5 +247,28 @@ public class UsuarioService {
 
     }
 
+    @Transactional
+    public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado, ChangeTrabalhoSolicitadoDTO dto ){
+
+    Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado =trabalhoSolicitadoRepository.findById((id_trabalho_solicitado));
+
+    if (optionalTrabalhoSolicitado.isEmpty()) {
+           
+    }
+
+    TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+
+
+    // Atualiza os campos da entidade a partir do DTO recebido
+    trabalhoSolicitadoEntity.setTipo(dto.getTipo());
+    trabalhoSolicitadoEntity.setValor(dto.getValor());
+    trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
+    trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
+    trabalhoSolicitadoEntity.setStatus(dto.isStatus());
+    trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+
+    trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+
+    }
 
 }

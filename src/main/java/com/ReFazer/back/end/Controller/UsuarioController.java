@@ -85,7 +85,7 @@ public class UsuarioController {
 
     @PatchMapping("/{id_usuario}/avaliacao/{id_avaliacao}")
 
-    public ResponseEntity<?> changeUsuario(@PathVariable long id_avaliacao, @RequestBody ChangeAvaliacaoDTO   dto) {
+    public ResponseEntity<?> changeAValiacao(@PathVariable long id_avaliacao, @RequestBody ChangeAvaliacaoDTO   dto) {
 
         usuarioService.changeAvaliacaoInfoByid(id_avaliacao, dto);
 
@@ -93,7 +93,8 @@ public class UsuarioController {
 
     }
 
-    @PutMapping("/{id_usuario}/trabalhos/{tipoProjeto}")
+  
+    @PatchMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
     public ResponseEntity<?> putMethodName(@PathVariable long id_usuario, @PathVariable String tipoProjeto,
             @RequestBody ChangeTrabalhoSolicitadoDTO changeTrabalhoSolicitadoDTO) {
 
