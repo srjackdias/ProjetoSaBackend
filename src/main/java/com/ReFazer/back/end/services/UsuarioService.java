@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
@@ -144,7 +145,21 @@ public class UsuarioService {
     
     
         dto.setAvaliacao(avaliacaoDTO);
+        List<ShowTrabalhoSolicitadoDTO> trabalhosSolicitadosDTO = new ArrayList<>();
 
+        // Preenche a lista iterando sobre os trabalhos de usuarioEntity
+        for (TrabalhoSolicitadoEntity trabalho : usuarioEntity.getTrabalhos()) {
+            ShowTrabalhoSolicitadoDTO trabalhoDTO = new ShowTrabalhoSolicitadoDTO();
+            trabalhoDTO.setTipo(trabalho.getTipo());
+            trabalhoDTO.setValor(trabalho.getValor());
+            trabalhoDTO.setLocalizacao(trabalho.getLocalizacao());
+            trabalhoDTO.setDescricao(trabalho.getDescricao());
+            trabalhoDTO.setStatus(trabalho.isStatus());
+            trabalhosSolicitadosDTO.add(trabalhoDTO);
+        }
+    
+        dto.setTrabalhos(trabalhosSolicitadosDTO);
+    
         return dto;
     
     }
@@ -201,8 +216,35 @@ public class UsuarioService {
 
 
         usuarioRepository.save(usuarioEntity);
+        
+        
     }
     
+    @Transactional
+    public void changeAvaliacaoInfoByid(long id_avaliacao,ChangeAvaliacaoDTO dto){
+
+
+        Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
+
+
+
+        if (optionalAvaliacaoEntity.isEmpty()) {
+           
+        }
+
+        AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
+
+
+
+        avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
+
+        avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
+        
+
+        avaliacaoRepository.save(avaliacaoEntity);
+
+
+    }
 
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
@@ -74,9 +75,19 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id_usuario}")
-    public ResponseEntity<?> changeUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO dto) {
+    public ResponseEntity<?> changeUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO   dto) {
 
         usuarioService.changeUsuarioInfosById(id_usuario, dto);
+
+        return ResponseEntity.status(200).build();
+
+    }
+
+    @PatchMapping("/{id_usuario}/avaliacao/{id_avaliacao}")
+
+    public ResponseEntity<?> changeUsuario(@PathVariable long id_avaliacao, @RequestBody ChangeAvaliacaoDTO   dto) {
+
+        usuarioService.changeAvaliacaoInfoByid(id_avaliacao, dto);
 
         return ResponseEntity.status(200).build();
 
