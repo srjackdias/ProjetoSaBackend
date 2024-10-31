@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,8 +94,23 @@ public class UsuarioController {
 
     }
 
-  
     @PatchMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
+    public ResponseEntity<?> changeTrabalhoSolicitado(@PathVariable long id_usuario, @PathVariable long id_trabalho_solicitado, @RequestBody ChangeTrabalhoSolicitadoDTO dto) {
+        usuarioService.changeTrabalhoSolicitadoInfoById(id_trabalho_solicitado, dto);
+        return ResponseEntity.status(200).build();
+    }
+
+    @DeleteMapping("/{id_usuario}")
+
+    public ResponseEntity<?> deleteUsuario(@PathVariable Long id_usuario){
+
+        usuarioService.deleteUsuarioById(id_usuario);
+
+        return ResponseEntity.status(200).build();
+    }
+
+  
+    @PutMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
     public ResponseEntity<?> putMethodName(@PathVariable long id_usuario, @PathVariable String tipoProjeto,
             @RequestBody ChangeTrabalhoSolicitadoDTO changeTrabalhoSolicitadoDTO) {
 
