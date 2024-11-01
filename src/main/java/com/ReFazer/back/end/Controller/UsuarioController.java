@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
+// import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
-import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
+// import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
 import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
-import com.ReFazer.back.end.services.TrabalhoSolicitadoService;
+// import com.ReFazer.back.end.services.TrabalhoSolicitadoService;
 import com.ReFazer.back.end.services.UsuarioService;
 
 @RestController
@@ -34,14 +34,15 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    
-    
 
-    @Autowired
-    TrabalhoSolicitadoService trabalhoSolicitadoService;
 
-    @PostMapping
+    // @Autowired
+    // TrabalhoSolicitadoService trabalhoSolicitadoService;
+
+    @PostMapping("{id_usuario}")
+
     public ResponseEntity<?> createUsuario(@RequestBody CreateUsuarioDTO dto) {
+        System.out.println(dto.getId_usuario());
 
         System.out.println(dto.getNome());
         System.out.println(dto.getEmail());
@@ -64,17 +65,17 @@ public class UsuarioController {
         return ResponseEntity.status(201).build();
     }
 
-    @PostMapping("avaliacao")
-    public ResponseEntity<?> createAvaliacao(@RequestBody CreateAvaliacaoDTO dto){
+    // @PostMapping("avaliacao")
+    // public ResponseEntity<?> createAvaliacao(@RequestBody CreateAvaliacaoDTO dto){
 
-        System.out.println(dto.getNota_avaliacao());
-        System.out.println(dto.getTexto_avaliativo());
+    //     System.out.println(dto.getNota_avaliacao());
+    //     System.out.println(dto.getTexto_avaliativo());
 
-        usuarioService.createAvaliacao(dto);
+    //     usuarioService.createAvaliacao(dto);
 
-        return ResponseEntity.status(201).build();
+    //     return ResponseEntity.status(201).build();
 
-    }
+    // }
 
 
 
@@ -105,21 +106,21 @@ public class UsuarioController {
 
     }
 
-    @PatchMapping("/{id_usuario}/avaliacao/{id_avaliacao}")
+    // @PatchMapping("/{id_usuario}/avaliacao/{id_avaliacao}")
 
-    public ResponseEntity<?> changeAValiacao(@PathVariable long id_avaliacao, @RequestBody ChangeAvaliacaoDTO   dto) {
+    // public ResponseEntity<?> changeAValiacao(@PathVariable long id_avaliacao, @RequestBody ChangeAvaliacaoDTO   dto) {
 
-        usuarioService.changeAvaliacaoInfoByid(id_avaliacao, dto);
+    //     usuarioService.changeAvaliacaoInfoByid(id_avaliacao, dto);
 
-        return ResponseEntity.status(200).build();
+    //     return ResponseEntity.status(200).build();
 
-    }
+    // }
 
-    @PatchMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
-    public ResponseEntity<?> changeTrabalhoSolicitado(@PathVariable long id_usuario, @PathVariable long id_trabalho_solicitado, @RequestBody ChangeTrabalhoSolicitadoDTO dto) {
-        usuarioService.changeTrabalhoSolicitadoInfoById(id_trabalho_solicitado, dto);
-        return ResponseEntity.status(200).build();
-    }
+    // @PatchMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
+    // public ResponseEntity<?> changeTrabalhoSolicitado(@PathVariable long id_usuario, @PathVariable long id_trabalho_solicitado, @RequestBody ChangeTrabalhoSolicitadoDTO dto) {
+    //     usuarioService.changeTrabalhoSolicitadoInfoById(id_trabalho_solicitado, dto);
+    //     return ResponseEntity.status(200).build();
+    // }
 
     @DeleteMapping("/{id_usuario}")
 
@@ -131,29 +132,29 @@ public class UsuarioController {
     }
 
 
-    @DeleteMapping("/avaliacao/{id_avaliacao}")
+    // @DeleteMapping("/avaliacao/{id_avaliacao}")
 
-    public ResponseEntity<?> deleteAvaliacao(@PathVariable Long id_avaliacao){
+    // public ResponseEntity<?> deleteAvaliacao(@PathVariable Long id_avaliacao){
 
-        usuarioService.deleteAvaliacaoById(id_avaliacao);
+    //     usuarioService.deleteAvaliacaoById(id_avaliacao);
 
-        return ResponseEntity.status(200).build();
-    }
-
-
-
-    @DeleteMapping("/trabalhos/{id_trabalho_solicitado}")
-
-     public ResponseEntity<?> deleteTrabalhoSolicitado(@PathVariable Long id_trabalho_solicitado){
-
-        usuarioService.deleteTrabalhoSolicitadoById(id_trabalho_solicitado);
-
-        return ResponseEntity.status(200).build();
+    //     return ResponseEntity.status(200).build();
+    // }
 
 
 
+    // @DeleteMapping("/trabalhos/{id_trabalho_solicitado}")
 
-     }
+    //  public ResponseEntity<?> deleteTrabalhoSolicitado(@PathVariable Long id_trabalho_solicitado){
+
+    //     usuarioService.deleteTrabalhoSolicitadoById(id_trabalho_solicitado);
+
+    //     return ResponseEntity.status(200).build();
+
+
+
+
+    //  }
 
   
     @PutMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")

@@ -7,16 +7,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
-import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
+// import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
+// import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
-import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
+// import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
 // import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
 import com.ReFazer.back.end.dtos.resp.ShowAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
-import com.ReFazer.back.end.entities.AvaliacaoEntity;
+// import com.ReFazer.back.end.entities.AvaliacaoEntity;
 import com.ReFazer.back.end.entities.TrabalhoSolicitadoEntity;
 import com.ReFazer.back.end.entities.UsuarioEntity;
 import com.ReFazer.back.end.repositories.AvaliacaoRepository;
@@ -41,9 +41,10 @@ public class UsuarioService {
     AvaliacaoRepository avaliacaoRepository;
 
     @Transactional
-    public void createUsuario(CreateUsuarioDTO dto) {
+    public void createUsuario( CreateUsuarioDTO dto) {
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
+        usuarioEntity.setId_usuario(dto.getId_usuario());
         usuarioEntity.setNome(dto.getNome());
         usuarioEntity.setEmail(dto.getEmail());
         usuarioEntity.setSenha(dto.getSenha());
@@ -83,22 +84,22 @@ public class UsuarioService {
     }
 
 
-    @Transactional
-    public void createAvaliacao(CreateAvaliacaoDTO dto){
+    // @Transactional
+    // public void createAvaliacao(CreateAvaliacaoDTO dto){
 
 
 
 
-        AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
-        avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
-        avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
-        avaliacaoEntity.setUsuario(dto.getUsuario());
+    //     AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
+    //     avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
+    //     avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
+    //     avaliacaoEntity.setUsuario(dto.getUsuario());
 
-         avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
+    //      avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
 
 
 
-    }
+    // }
 
 
 
@@ -210,45 +211,45 @@ public class UsuarioService {
 
     }
 
-    @Transactional
-    public void deleteAvaliacaoById(Long id_avaliacao) {
+    // @Transactional
+    // public void deleteAvaliacaoById(Long id_avaliacao) {
 
-        Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
+    //     Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
 
-        if (optionalAvaliacaoEntity.isEmpty()) {
+    //     if (optionalAvaliacaoEntity.isEmpty()) {
 
-        }
-        AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
+    //     }
+    //     AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
 
-        if (avaliacaoEntity != null) {
-            avaliacaoRepository.deleteById(id_avaliacao);
-        } else {
+    //     if (avaliacaoEntity != null) {
+    //         avaliacaoRepository.deleteById(id_avaliacao);
+    //     } else {
 
-            // throw new deletableException();
+    //         // throw new deletableException();
 
-        }
+    //     }
 
-    }
+    // }
 
-    @Transactional
-    public void deleteTrabalhoSolicitadoById(Long id_trabalho_solicitado) {
+    // @Transactional
+    // public void deleteTrabalhoSolicitadoById(Long id_trabalho_solicitado) {
 
-        Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
-                .findById(id_trabalho_solicitado);
+    //     Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
+    //             .findById(id_trabalho_solicitado);
 
-        if (optionalTrabalhoSolicitado.isEmpty()) {
+    //     if (optionalTrabalhoSolicitado.isEmpty()) {
 
-        }
+    //     }
 
-        TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+    //     TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
 
-        if (trabalhoSolicitadoEntity != null) {
-            trabalhoSolicitadoRepository.deleteById(id_trabalho_solicitado);
+    //     if (trabalhoSolicitadoEntity != null) {
+    //         trabalhoSolicitadoRepository.deleteById(id_trabalho_solicitado);
 
-        }
-        // throw new deletableException();
+    //     }
+    //     // throw new deletableException();
 
-    }
+    // }
 
 
 
@@ -275,47 +276,47 @@ public class UsuarioService {
 
     }
 
-    @Transactional
-    public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO dto) {
+    // @Transactional
+    // public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO dto) {
 
-        Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
+    //     Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
 
-        if (optionalAvaliacaoEntity.isEmpty()) {
+    //     if (optionalAvaliacaoEntity.isEmpty()) {
 
-        }
+    //     }
 
-        AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
+    //     AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
 
-        avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
+    //     avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
 
-        avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
+    //     avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
 
-        avaliacaoRepository.save(avaliacaoEntity);
+    //     avaliacaoRepository.save(avaliacaoEntity);
 
-    }
+    // }
 
-    @Transactional
-    public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado, ChangeTrabalhoSolicitadoDTO dto) {
+    // @Transactional
+    // public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado, ChangeTrabalhoSolicitadoDTO dto) {
 
-        Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
-                .findById((id_trabalho_solicitado));
+    //     Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
+    //             .findById((id_trabalho_solicitado));
 
-        if (optionalTrabalhoSolicitado.isEmpty()) {
+    //     if (optionalTrabalhoSolicitado.isEmpty()) {
 
-        }
+    //     }
 
-        TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+    //     TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
 
-        // Atualiza os campos da entidade a partir do DTO recebido
-        trabalhoSolicitadoEntity.setTipo(dto.getTipo());
-        trabalhoSolicitadoEntity.setValor(dto.getValor());
-        trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
-        trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
-        trabalhoSolicitadoEntity.setStatus(dto.isStatus());
-        trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+    //     // Atualiza os campos da entidade a partir do DTO recebido
+    //     trabalhoSolicitadoEntity.setTipo(dto.getTipo());
+    //     trabalhoSolicitadoEntity.setValor(dto.getValor());
+    //     trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
+    //     trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
+    //     trabalhoSolicitadoEntity.setStatus(dto.isStatus());
+    //     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
-        trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+    //     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
-    }
+    // }
 
 }

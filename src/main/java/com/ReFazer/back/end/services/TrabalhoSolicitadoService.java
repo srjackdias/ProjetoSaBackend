@@ -39,4 +39,49 @@ public void changeTrabalhoByTipo(String tipo, ChangeTrabalhoSolicitadoDTO dto){
     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 }
 
+
+@Transactional
+public void deleteTrabalhoSolicitadoById(Long id_trabalho_solicitado) {
+
+    Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
+            .findById(id_trabalho_solicitado);
+
+    if (optionalTrabalhoSolicitado.isEmpty()) {
+
+    }
+
+    TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+
+    if (trabalhoSolicitadoEntity != null) {
+        trabalhoSolicitadoRepository.deleteById(id_trabalho_solicitado);
+
+    }
+    // throw new deletableException();
+
+}
+
+@Transactional
+public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado, ChangeTrabalhoSolicitadoDTO dto) {
+
+    Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
+            .findById((id_trabalho_solicitado));
+
+    if (optionalTrabalhoSolicitado.isEmpty()) {
+
+    }
+
+    TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+
+    // Atualiza os campos da entidade a partir do DTO recebido
+    trabalhoSolicitadoEntity.setTipo(dto.getTipo());
+    trabalhoSolicitadoEntity.setValor(dto.getValor());
+    trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
+    trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
+    trabalhoSolicitadoEntity.setStatus(dto.isStatus());
+    trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+
+    trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+
+}
+
 }
