@@ -68,8 +68,8 @@ public class AvaliacaoEntity {
     }
 
 
-    public void setUsuario(UsuarioEntity usuario) {
-        this.usuario = usuario;
+    public void setUsuario(UsuarioEntity usuarioEntity) {
+        this.usuario = usuarioEntity;
     }
 
 

@@ -1,6 +1,6 @@
 package com.ReFazer.back.end.dtos.req;
 
-import java.util.List;
+// import java.util.List;
 
 
 public class CreateUsuarioDTO {
@@ -11,8 +11,8 @@ public class CreateUsuarioDTO {
     private String telefone;
     private String cep;
     private String tipo_usuario;
-    private CreateAvaliacaoDTO avaliacao;
-    private List<CreateTrabalhoSolicitadoDTO> trabalhos;
+    // private CreateAvaliacaoDTO avaliacao;
+    // private List<CreateTrabalhoSolicitadoDTO> trabalhos;
     public String getNome() {
         return nome;
     }
@@ -49,18 +49,18 @@ public class CreateUsuarioDTO {
     public void setTipo_usuario(String tipo_usuario) {
         this.tipo_usuario = tipo_usuario;
     }
-    public CreateAvaliacaoDTO getAvaliacao() {
-        return avaliacao;
-    }
-    public void setAvaliacao(CreateAvaliacaoDTO avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-    public List<CreateTrabalhoSolicitadoDTO> getTrabalhos() {
-        return trabalhos;
-    }
-    public void setTrabalhos(List<CreateTrabalhoSolicitadoDTO> trabalhos) {
-        this.trabalhos = trabalhos;
-    }
+    // public CreateAvaliacaoDTO getAvaliacao() {
+    //     return avaliacao;
+    // }
+    // public void setAvaliacao(CreateAvaliacaoDTO avaliacao) {
+    //     this.avaliacao = avaliacao;
+    // }
+    // public List<CreateTrabalhoSolicitadoDTO> getTrabalhos() {
+    //     return trabalhos;
+    // }
+    // public void setTrabalhos(List<CreateTrabalhoSolicitadoDTO> trabalhos) {
+    //     this.trabalhos = trabalhos;
+    // }
 
 
 

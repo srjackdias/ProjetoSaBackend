@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
+import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
 import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
@@ -25,10 +27,15 @@ import com.ReFazer.back.end.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
+
+@CrossOrigin
 public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    
+    
 
     @Autowired
     TrabalhoSolicitadoService trabalhoSolicitadoService;
@@ -43,19 +50,33 @@ public class UsuarioController {
         System.out.println(dto.getCep());
         System.out.println(dto.getTipo_usuario());
 
-        System.out.println(dto.getAvaliacao().getNota_avaliacao());
-        System.out.println(dto.getAvaliacao().getTexto_avaliativo());
+        // System.out.println(dto.getAvaliacao().getNota_avaliacao());
+        // System.out.println(dto.getAvaliacao().getTexto_avaliativo());
 
-        System.out.println(dto.getTrabalhos().get(0).getTipo());
-        System.out.println(dto.getTrabalhos().get(0).getValor());
-        System.out.println(dto.getTrabalhos().get(0).getLocalizacao());
-        System.out.println(dto.getTrabalhos().get(0).getDescricao());
-        System.out.println(dto.getTrabalhos().get(0).isStatus());
+        // System.out.println(dto.getTrabalhos().get(0).getTipo());
+        // System.out.println(dto.getTrabalhos().get(0).getValor());
+        // System.out.println(dto.getTrabalhos().get(0).getLocalizacao());
+        // System.out.println(dto.getTrabalhos().get(0).getDescricao());
+        // System.out.println(dto.getTrabalhos().get(0).isStatus());
 
         usuarioService.createUsuario(dto);
 
         return ResponseEntity.status(201).build();
     }
+
+    @PostMapping("avaliacao")
+    public ResponseEntity<?> createAvaliacao(@RequestBody CreateAvaliacaoDTO dto){
+
+        System.out.println(dto.getNota_avaliacao());
+        System.out.println(dto.getTexto_avaliativo());
+
+        usuarioService.createAvaliacao(dto);
+
+        return ResponseEntity.status(201).build();
+
+    }
+
+
 
     @GetMapping
     public ResponseEntity<?> getAllUsuarios() {
@@ -108,6 +129,31 @@ public class UsuarioController {
 
         return ResponseEntity.status(200).build();
     }
+
+
+    @DeleteMapping("/avaliacao/{id_avaliacao}")
+
+    public ResponseEntity<?> deleteAvaliacao(@PathVariable Long id_avaliacao){
+
+        usuarioService.deleteAvaliacaoById(id_avaliacao);
+
+        return ResponseEntity.status(200).build();
+    }
+
+
+
+    @DeleteMapping("/trabalhos/{id_trabalho_solicitado}")
+
+     public ResponseEntity<?> deleteTrabalhoSolicitado(@PathVariable Long id_trabalho_solicitado){
+
+        usuarioService.deleteTrabalhoSolicitadoById(id_trabalho_solicitado);
+
+        return ResponseEntity.status(200).build();
+
+
+
+
+     }
 
   
     @PutMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
