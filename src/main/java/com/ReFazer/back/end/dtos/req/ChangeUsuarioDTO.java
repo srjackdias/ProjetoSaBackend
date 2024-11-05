@@ -7,7 +7,7 @@ public class ChangeUsuarioDTO {
     private String senha;
     private String telefone;
     private String cep;
-    private String tipo_usuario;
+    private String tipoUsuario;
     public String getNome() {
         return nome;
     }
@@ -38,11 +38,11 @@ public class ChangeUsuarioDTO {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    public String getTipo_usuario() {
-        return tipo_usuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipo_usuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
   

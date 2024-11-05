@@ -39,17 +39,16 @@ public class UsuarioController {
     // @Autowired
     // TrabalhoSolicitadoService trabalhoSolicitadoService;
 
-    @PostMapping("{id_usuario}")
-
+    @PostMapping
     public ResponseEntity<?> createUsuario(@RequestBody CreateUsuarioDTO dto) {
-        System.out.println(dto.getId_usuario());
+        // System.out.println(dto.getId_usuario());
 
         System.out.println(dto.getNome());
         System.out.println(dto.getEmail());
         System.out.println(dto.getSenha());
         System.out.println(dto.getTelefone());
         System.out.println(dto.getCep());
-        System.out.println(dto.getTipo_usuario());
+        System.out.println(dto.getTipoUsuario());
 
         // System.out.println(dto.getAvaliacao().getNota_avaliacao());
         // System.out.println(dto.getAvaliacao().getTexto_avaliativo());

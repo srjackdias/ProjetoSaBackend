@@ -41,16 +41,16 @@ public class UsuarioService {
     AvaliacaoRepository avaliacaoRepository;
 
     @Transactional
-    public void createUsuario( CreateUsuarioDTO dto) {
+    public UsuarioEntity createUsuario( CreateUsuarioDTO userDummy) {
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
-        usuarioEntity.setId_usuario(dto.getId_usuario());
-        usuarioEntity.setNome(dto.getNome());
-        usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setSenha(dto.getSenha());
-        usuarioEntity.setTelefone(dto.getTelefone());
-        usuarioEntity.setCep(dto.getCep());
-        usuarioEntity.setTipo_usuario(dto.getTipo_usuario());
+        // usuarioEntity.setId_usuario(dto.getId_usuario());
+        usuarioEntity.setNome(userDummy.getNome());
+        usuarioEntity.setEmail(userDummy.getEmail());
+        usuarioEntity.setSenha(userDummy.getSenha());
+        usuarioEntity.setTelefone(userDummy.getTelefone());
+        usuarioEntity.setCep(userDummy.getCep());
+        usuarioEntity.setTipoUsuario(userDummy.getTipoUsuario());
 
         usuarioEntity = usuarioRepository.save(usuarioEntity);
 
@@ -80,7 +80,11 @@ public class UsuarioService {
 
         // }
 
+        
+        
         // trabalhoSolicitadoRepository.saveAll(trabalhosSolicitadoEntity);
+
+        return usuarioEntity;
     }
 
 
@@ -136,7 +140,7 @@ public class UsuarioService {
                     usuarioDTO.setSenha(usuario.getSenha());
                     usuarioDTO.setTelefone(usuario.getTelefone());
                     usuarioDTO.setCep(usuario.getCep());
-                    usuarioDTO.setTipo_usuario(usuario.getTipo_usuario());
+                    usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
                     usuarioDTO.setTrabalhos(trabalhosSolicitadoDTO);
                     usuarioDTO.setAvaliacao(avaliacaoDTO);
 
@@ -162,7 +166,7 @@ public class UsuarioService {
         dto.setSenha(usuarioEntity.getSenha());
         dto.setTelefone(usuarioEntity.getTelefone());
         dto.setCep(usuarioEntity.getCep());
-        dto.setTipo_usuario(usuarioEntity.getTipo_usuario());
+        dto.setTipoUsuario(usuarioEntity.getTipoUsuario());
 
         ShowAvaliacaoDTO avaliacaoDTO = new ShowAvaliacaoDTO();
         avaliacaoDTO.setNota_avaliacao(usuarioEntity.getAvaliacao().getNota_avaliacao());
@@ -270,7 +274,7 @@ public class UsuarioService {
         usuarioEntity.setSenha(dto.getSenha());
         usuarioEntity.setTelefone(dto.getTelefone());
         usuarioEntity.setCep(dto.getCep());
-        usuarioEntity.setTipo_usuario(dto.getTipo_usuario());
+        usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
 
         usuarioRepository.save(usuarioEntity);
 

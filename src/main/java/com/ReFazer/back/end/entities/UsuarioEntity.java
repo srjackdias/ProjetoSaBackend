@@ -37,7 +37,7 @@ public class UsuarioEntity {
     private String cep;
     
     @Column(name = "tipo_usuario")
-    private String tipo_usuario;
+    private String tipoUsuario ; 
     
     @OneToOne(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     private AvaliacaoEntity avaliacao;
@@ -93,12 +93,12 @@ public class UsuarioEntity {
         this.cep = cep;
     }
 
-    public String getTipo_usuario() {
-        return tipo_usuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public AvaliacaoEntity getAvaliacao() {

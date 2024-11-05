@@ -12,7 +12,7 @@ public class ShowUsuarioDTO {
     private String senha;
     private String telefone;
     private String cep;
-    private String tipo_usuario;
+    private String tipoUsuario;
 
 
     private ShowAvaliacaoDTO avaliacao;
@@ -53,11 +53,11 @@ public class ShowUsuarioDTO {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    public String getTipo_usuario() {
-        return tipo_usuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     public ShowAvaliacaoDTO getAvaliacao() {
         return avaliacao;
