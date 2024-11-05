@@ -42,6 +42,9 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioEntity createUsuario( CreateUsuarioDTO userDummy) {
+        if (usuarioRepository.existsByEmail(userDummy.getEmail())) {
+            throw new EmailJaCadastradoException("O e-mail já está cadastrado: " + userDummy.getEmail());
+        }
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         // usuarioEntity.setId_usuario(dto.getId_usuario());

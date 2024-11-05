@@ -2,7 +2,9 @@ package com.ReFazer.back.end.services;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,5 +47,28 @@ public class UserServiceTest {
         assertEquals(userDummy.getTipoUsuario(), usuarioCriado.getTipoUsuario());
     }
     
+
+@Test
+public void TestarEmailJaCadastrado() {
+    CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+    userDummy.setNome("Maria");
+    userDummy.setEmail("sr.jackdias@gmail.com");
+    userDummy.setSenha("5432");
+    userDummy.setTelefone("991834");
+    userDummy.setCep("49328");
+    userDummy.setTipoUsuario("Trabalhador");
+
+    // Primeiro, cria o usuário para garantir que o email já está cadastrado
+    usuarioService.createUsuario(userDummy);
+
+    // Verifique se a exceção é lançada ao tentar criar o mesmo usuário novamente
+    EmailJaCadastradoException exception = assertThrows(EmailJaCadastradoException.class, () -> {
+        usuarioService.createUsuario(userDummy);
+    });
+
+    // Verifique a mensagem da exceção
+    assertEquals("O e-mail já está cadastrado: " + userDummy.getEmail(), exception.getMessage());
+}
+
     
 }
