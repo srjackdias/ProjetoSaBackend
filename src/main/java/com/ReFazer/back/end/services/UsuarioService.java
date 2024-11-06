@@ -131,10 +131,6 @@ public class UsuarioService {
 
     //      avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
 
-
-
-    // }
-
     public boolean loginUsuario(String email, String senha) {
         UsuarioEntity usuario = usuarioRepository.findByEmail(email);
 
@@ -144,6 +140,29 @@ public class UsuarioService {
             return false; // Falha no login
         }
     }
+
+    // }
+
+    public boolean loginUsuarioEmail(String email) {
+        UsuarioEntity usuario = usuarioRepository.findByEmail(email);
+
+        if (usuario != null && usuario.getEmail().equals(email)) {
+            return true; // Login bem-sucedido
+        } else {
+            return false; // Falha no login
+        }
+    }
+
+    public boolean loginUsuarioSenha( String senha) {
+        UsuarioEntity usuario = usuarioRepository.findBySenha(senha);
+
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return true; // Login bem-sucedido
+        } else {
+            return false; // Falha no login
+        }
+    }
+
 
 
 

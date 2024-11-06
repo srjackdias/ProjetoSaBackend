@@ -2,12 +2,12 @@ package com.ReFazer.back.end.services;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,6 +26,21 @@ import jakarta.transaction.Transactional;
 public class UserServiceTest {
       @Autowired
     UsuarioService usuarioService;
+
+    @BeforeEach
+    public void criarUusuarioBase(){
+
+        CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+        userDummy.setNome("teste");
+        userDummy.setEmail("jr.jackdias@gmail.com");
+        userDummy.setSenha("5432");
+        userDummy.setTelefone("12345");
+        userDummy.setCep("88049317");
+        userDummy.setTipoUsuario("cliente");
+    
+        usuarioService.createUsuario(userDummy);
+
+    }
 
     @Test
     public void testCriarUsuarioComSucesso() {
@@ -100,15 +115,7 @@ public void testarCampoObrigatorioVazio(String nome, String email, String senha,
 @Test
 public void testLoginComSucesso() {
     // Criação do usuário para o teste de login
-    CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-        userDummy.setNome("teste");
-        userDummy.setEmail("jr.jackdias@gmail.com");
-        userDummy.setSenha("5432");
-        userDummy.setTelefone("12345");
-        userDummy.setCep("88049317");
-        userDummy.setTipoUsuario("cliente");
-    
-        usuarioService.createUsuario(userDummy);
+   
 
     //CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
     //userDummy.setEmail("jr.jackdias@gmail.com");
@@ -118,8 +125,8 @@ public void testLoginComSucesso() {
     // usuarioService.createUsuario(userDummy);
 
     // Teste de login com dados válidos
-    String email = userDummy.getEmail();
-    String senha = userDummy.getSenha();
+    String email ="jr.jackdias@gmail.com"; //userDummy.getEmail();
+    String senha = "5432";
 
 
     boolean loginSucesso = usuarioService.loginUsuario(email, senha);
@@ -129,5 +136,32 @@ public void testLoginComSucesso() {
 }
 
 
+@Test
+public void testFalhaLogin() {
+    // Dados de login inválidos
+    String email = "marcos"; // Email que não existe
+    String senha = "5432";
+
+    // Tentativa de login com os dados inválidos
+    boolean loginSucesso = usuarioService.loginUsuario(email, senha);
+
+    // O login deve falhar, portanto, a asserção deve ser false
+    assertFalse(loginSucesso, "A conta com o email " + email + " não existe ou as credenciais estão incorretas.");
+}
+
+
+@Test
+public void testFalhaSenhalogin() {
+    // Dados de login inválidos
+
+    String email ="jr.jackdias@gmail.com"; //userDummy.getEmail();
+    String senha = "1234";
+
+    // Tentativa de login com os dados inválidos
+    boolean loginSucesso = usuarioService.loginUsuario(email, senha);
+
+    // O login deve falhar, portanto, a asserção deve ser false
+    assertFalse(loginSucesso,"Senha ou e-mail incorretos");
+}
 
 }
