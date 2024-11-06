@@ -13,5 +13,6 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     // public List<UsuarioEntity> findByTipoUsuario(String  tipoUsuario);
     boolean existsByEmail(String email);
 
+    UsuarioEntity findByEmail(String email);
 
 }

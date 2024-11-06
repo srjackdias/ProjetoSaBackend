@@ -2,18 +2,21 @@ package com.ReFazer.back.end.services;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
-import com.ReFazer.back.end.entities.UsuarioEntity;
 
 import jakarta.transaction.Transactional;
 
@@ -58,17 +61,73 @@ public void TestarEmailJaCadastrado() {
     userDummy.setCep("49328");
     userDummy.setTipoUsuario("Trabalhador");
 
-    // Primeiro, cria o usuário para garantir que o email já está cadastrado
     usuarioService.createUsuario(userDummy);
 
-    // Verifique se a exceção é lançada ao tentar criar o mesmo usuário novamente
     EmailJaCadastradoException exception = assertThrows(EmailJaCadastradoException.class, () -> {
         usuarioService.createUsuario(userDummy);
     });
-
-    // Verifique a mensagem da exceção
     assertEquals("O e-mail já está cadastrado: " + userDummy.getEmail(), exception.getMessage());
 }
 
     
+
+
+
+@ParameterizedTest
+@CsvSource({
+    "'', sr.jackdias@gmail.com, 5432, 991834, 49328, O campo nome é obrigatório.",
+    "Maria, '', 5432, 991834, 49328, O campo email é obrigatório.",
+    "Maria, sr.jackdias@gmail.com, '', 991834, 49328, O campo senha é obrigatório.",
+    "Maria, sr.jackdias@gmail.com, 5432, '', 49328, O campo telefone é obrigatório.",
+    "Maria, sr.jackdias@gmail.com, 5432, 991834, '', O campo CEP é obrigatório."
+})
+public void testarCampoObrigatorioVazio(String nome, String email, String senha, String telefone, String cep, String mensagemEsperada) {
+    CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+    userDummy.setNome(nome);
+    userDummy.setEmail(email);
+    userDummy.setSenha(senha);
+    userDummy.setTelefone(telefone);
+    userDummy.setCep(cep);
+    userDummy.setTipoUsuario("Trabalhador");
+
+    CampoObrigatorioException exception = assertThrows(CampoObrigatorioException.class, () -> {
+        usuarioService.createUsuario(userDummy);
+    });
+    
+    assertEquals(mensagemEsperada, exception.getMessage());
+}
+
+@Test
+public void testLoginComSucesso() {
+    // Criação do usuário para o teste de login
+    CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+        userDummy.setNome("teste");
+        userDummy.setEmail("jr.jackdias@gmail.com");
+        userDummy.setSenha("5432");
+        userDummy.setTelefone("12345");
+        userDummy.setCep("88049317");
+        userDummy.setTipoUsuario("cliente");
+    
+        usuarioService.createUsuario(userDummy);
+
+    //CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+    //userDummy.setEmail("jr.jackdias@gmail.com");
+    //userDummy.setSenha("5432"); // A mesma senha que será usada para o login
+
+    // Criando o usuário no banco de dados
+    // usuarioService.createUsuario(userDummy);
+
+    // Teste de login com dados válidos
+    String email = userDummy.getEmail();
+    String senha = userDummy.getSenha();
+
+
+    boolean loginSucesso = usuarioService.loginUsuario(email, senha);
+
+    // Então o login deve ser bem-sucedido
+    assertTrue(loginSucesso);
+}
+
+
+
 }

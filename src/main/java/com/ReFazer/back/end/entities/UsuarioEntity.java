@@ -24,6 +24,10 @@ public class UsuarioEntity {
     @Column(name = "nome")
     private String nome;
 
+
+    @Column(name = "especialidade")
+    private String especialidade;
+
     @Column(name = "email")
     private String email;
     
@@ -59,6 +63,14 @@ public class UsuarioEntity {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
 
     public String getEmail() {
@@ -117,6 +129,7 @@ public class UsuarioEntity {
         this.trabalhos = trabalhos;
     }
 
+   
    
 
 

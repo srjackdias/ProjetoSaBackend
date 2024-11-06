@@ -7,6 +7,8 @@ public class CreateUsuarioDTO {
     
     // private Long id_usuario;
     private String nome;
+    private String especialidade;
+
     private String email;
     private String senha;
     private String telefone;
@@ -19,12 +21,17 @@ public class CreateUsuarioDTO {
     // }
     // public void setId_usuario(Long id_usuario) {
     //     this.id_usuario = id_usuario;
-    // }
     public String getNome() {
         return nome;
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getEspecialidade() {
+        return especialidade;
+    }
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
     public String getEmail() {
         return email;
@@ -56,7 +63,7 @@ public class CreateUsuarioDTO {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-    
+   
 
 
     

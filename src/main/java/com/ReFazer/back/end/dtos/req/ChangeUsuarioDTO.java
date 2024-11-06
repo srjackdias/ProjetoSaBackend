@@ -3,6 +3,8 @@ package com.ReFazer.back.end.dtos.req;
 public class ChangeUsuarioDTO {
 
     private String nome;
+    private String especialidade;
+
     private String email;
     private String senha;
     private String telefone;
@@ -13,6 +15,12 @@ public class ChangeUsuarioDTO {
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getEspecialidade() {
+        return especialidade;
+    }
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
     public String getEmail() {
         return email;
@@ -41,9 +49,10 @@ public class ChangeUsuarioDTO {
     public String getTipoUsuario() {
         return tipoUsuario;
     }
-    public void setTipo_usuario(String tipoUsuario) {
+    public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+   
 
   
 
